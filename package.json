@@ -1,0 +1,16 @@
+{
+  "name": "game-ai",
+  "version": "1.0.0",
+  "description": "Fun and games and AI",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "vite": "^6.0.5"
+  }
+}
