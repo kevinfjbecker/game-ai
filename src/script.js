@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import Map from './js/Map.js'
 import { generateMapView } from './js/MapView.js'
+import Pathfinder from './js/Pathfinder.js'
 
 const map = new Map()
 
@@ -14,5 +15,8 @@ const svg = d3.select('body')
     .append('svg')
         .attr('width', svgWidth)
         .attr('height', svgHeight)
-    
+
+const pathfinder = new Pathfinder()
+window.pathfinder = pathfinder // debug
+
 generateMapView(svg, map, squareSide, boarderWidth)
