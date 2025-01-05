@@ -54,7 +54,7 @@ export const generateGenomeView = (svg, genome, pathfinder) =>
         .attr('y', 0)
         .attr('width', bitWidth)
         .attr('height', bitHeight)
-        .style('fill', (d) => d === 0 ? 'black' : 'white')
+        .style('fill', (d) => d === 1 ? 'black' : 'white')
         .style('stroke', 'lightgrey')
 
     genomeView.append('rect')
