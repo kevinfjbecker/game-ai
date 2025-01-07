@@ -1,8 +1,11 @@
 
-import * as d3 from 'd3'
-import {NORTH, SOUTH, EAST, WEST} from './defines.js'
+import { NORTH, SOUTH, EAST, WEST } from './defines.js'
 
-const directionDegrees = [0, 180, 270, 90]
+const directionDegrees = { }
+directionDegrees[NORTH] = 0
+directionDegrees[SOUTH] = 180
+directionDegrees[EAST] = 270
+directionDegrees[WEST] = 90
 
 export const generateGenomeView = (svg, genome, pathfinder) =>
 {
