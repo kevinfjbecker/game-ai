@@ -10,17 +10,26 @@ export const generateGenomeView = (svg, genome, pathfinder) =>
 
     const width = svg.attr('width')
     const height = svg.attr('height')
-    const borderWidth = 8
-    const genomeWidth = (width - borderWidth * 2 )
+    const margin = 12
+    const padding = 12
+    const genomeWidth = (width - margin * 2 )
     const bitWidth = genomeWidth / genome.bits.length
-    const bitHeight = 21
+    const geneWidth = bitWidth * 2
 
-    const genomeTop = height - bitHeight - borderWidth
-    const genomeView = svg.append('g')
-        .attr('transform', `translate(${borderWidth}, ${genomeTop})`)
-        
+    const bitHeight = 21
+    const fontSize = bitHeight
+
+    const genomeTop = margin + geneWidth + padding
+    const decodeTop = genomeTop + bitHeight + padding
+
     const directionsView = svg.append('g')
-        .attr('transform', `translate(${borderWidth}, ${borderWidth})`)
+        .attr('transform', `translate(${margin}, ${margin})`)
+        
+    const genomeView = svg.append('g')
+        .attr('transform', `translate(${margin}, ${genomeTop})`)
+        
+    const decodeView = svg.append('g')
+        .attr('transform', `translate(${margin}, ${decodeTop})`)
     
     ///////////////////////////////////////////////////////////////////////////
         
@@ -28,11 +37,11 @@ export const generateGenomeView = (svg, genome, pathfinder) =>
         .data(pathfinder.decode(genome.bits))
         .join('g')
             .classed('direction-arrow', true)
-            .attr('transform', (d, i) =>`translate(${i * bitWidth * 2 + bitWidth}, ${bitWidth})`)
+            .attr('transform', (d, i) =>`translate(${i * geneWidth + bitWidth}, ${bitWidth})`)
         .append('g')
             .attr('transform', d => `rotate(${directionDegrees[d]})`)
         .append('path')
-            .attr('d', getArrowUpPathData(bitWidth * 2))
+            .attr('d', getArrowUpPathData(geneWidth))
             .style('stroke', 'green')
             .style('stroke-linecap', 'round')
             .style('stroke-linejoin', 'round')
@@ -40,8 +49,8 @@ export const generateGenomeView = (svg, genome, pathfinder) =>
         .append('rect')
             .attr('x', 0)
             .attr('y', 0)
-            .attr('width', bitWidth * 2)
-            .attr('height', bitWidth * 2)
+            .attr('width', geneWidth)
+            .attr('height', geneWidth)
             .style('fill', 'none')
 
     ///////////////////////////////////////////////////////////////////////////
@@ -61,10 +70,21 @@ export const generateGenomeView = (svg, genome, pathfinder) =>
         .classed('gene-focus-indicator', true)
         .attr('x', -1)
         .attr('y', -1)
-        .attr('width', bitWidth * 2 + 2)
+        .attr('width', geneWidth + 2)
         .attr('height', bitHeight + 2)
         .style('fill', 'none')
         .style('stroke', 'steelblue')
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    decodeView.selectAll('text')
+        .data(pathfinder.decode(genome.bits))
+        .join('text')
+        .text(d => d)
+        .attr('x', (d, i) => i * geneWidth + 2)
+        .attr('y', fontSize /2)
+        .style('font-size', fontSize)
+        .style('fill', (d) => 'green')
 }
 
 const getArrowUpPathData = (squareSide) =>

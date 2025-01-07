@@ -27,7 +27,7 @@ const mapSvg = d3.select('body').append('div')
         .attr('height', mapSvgHeight)
 
 const genomeSvgWidth = mapSvgWidth
-const genomeSvgHeight = 2 * squareSide
+const genomeSvgHeight = 3 * squareSide
 const genomeSvg = d3.select('body').append('div')
     .append('svg')
         .attr('id', 'genome-view')
